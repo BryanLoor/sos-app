@@ -4,19 +4,19 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'mapa',
-    loadChildren: () => import('./mapa/mapa.module').then( m => m.MapaPageModule)
+    loadChildren: () => import('./pages/mapa/mapa.module').then( m => m.MapaPageModule)
   },
   {
     path: 'contactos',
-    loadChildren: () => import('./contactos/contactos.module').then( m => m.ContactosPageModule)
+    loadChildren: () => import('./pages/contactos/contactos.module').then( m => m.ContactosPageModule)
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m=>m.HomePageModule)
   }
 ];
 @NgModule({

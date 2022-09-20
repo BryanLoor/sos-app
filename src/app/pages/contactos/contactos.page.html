@@ -1,0 +1,85 @@
+<app-header name="Contactos"></app-header>
+
+
+<ion-content color="tertiary" [fullscreen]="true">
+  <ion-list class="ion-margin"  style="background-color: var(--ion-color-tertiary) !important" >
+    <ion-item-sliding class="item" (ionDrag)="seleccionado(contacto)" *ngFor="let contacto of contactos ">
+        <ion-item  >
+          <ion-avatar slot="start">
+            <div id="text-avatar">{{contacto.nombre[0] }} {{contacto.nombre.split(' ')[1][0] | uppercase}} </div>
+          </ion-avatar>
+          <div>
+            <ion-label id="nombre">{{contacto.nombre}}</ion-label>
+            <ion-label id="telefono" slot="end">{{contacto.telefono}}</ion-label>
+          </div>
+        </ion-item>
+        <ion-item-options  (ionSwipe)="presentarModal(modalEdit)" side="start" >
+          <ion-item-option   (click)="presentarModal(modalEdit)" color="medium" expandable>
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+            <ion-label >Editar</ion-label>
+          </ion-item-option> 
+        </ion-item-options >
+        <ion-item-options   (ionSwipe)="eliminarContacto(contacto)" side="end">
+          <ion-item-option (click)="eliminarContacto(contacto)" color="danger" expandable>
+            <ion-label >Eliminar</ion-label>
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+
+  <!--Agregar Contacto-->
+  <ion-modal  trigger="open-modal-add" #modalAdd [initialBreakpoint]="0.75" [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    handleBehavior="cycle">
+    <ng-template >
+        <ion-content class="ion-padding ">
+          <div class="ion-text-center">
+            <h1 style="font-family: fantasy;" > Ingrese nuevo <br> contacto</h1>
+            <ion-icon style="font-size: 80px;" color="secondary" name="person-add"></ion-icon>
+  
+          </div>
+          <ion-item>
+            <ion-label position="floating">Ingrese nombre</ion-label>
+            <ion-input [(ngModel)]="nuevoNombre"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Ingrese teléfono</ion-label>
+            <ion-input [(ngModel)]="nuevoTelefono"></ion-input>
+          </ion-item>
+          <ion-button expand="block" (click)="agregarContacto(modalAdd)">Guardar</ion-button>
+        </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
+  <!--Editar Contacto-->
+  <ion-modal #modalEdit [initialBreakpoint]="0.75" [breakpoints]="[0, 0.25, 0.5, 0.75]" handleBehavior="cycle">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <div class="ion-text-center">
+          <h2 style="font-family: fantasy;" > Actualizar contacto<br> existente</h2>
+          <ion-icon style="font-size: 80px;" color="secondary" name="create"></ion-icon>
+        </div>
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input #nombre value="{{contactoSeleccionado.nombre}}"></ion-input>
+
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Teléfono</ion-label>
+          <ion-input #telf value="{{contactoSeleccionado.telefono}}"></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="editarContacto(modalEdit,nombre.value,telf.value)">Actualizar</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-fab id="fab" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button id="open-modal-add" color="secondary">
+      <ion-icon  name="person-add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+ 
+</ion-content>
